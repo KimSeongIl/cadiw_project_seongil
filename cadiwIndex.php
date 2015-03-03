@@ -1,3 +1,4 @@
+<div id="article">
 	<div id='calendar'>
 	</div>
 	<div id='noticeView'>
@@ -18,3 +19,4 @@
 			
 		</table>
 	</div>
+</div>

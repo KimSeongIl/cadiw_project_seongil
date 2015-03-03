@@ -34,7 +34,7 @@
 		</div>
 		<div id="menu_board_sub">
 						<li>강의자료</li>
-						<li>자유게시판</li>
+						<li><a href="/index.php/cpms/code/board">자유게시판<a></li>
 			</div>
 
 	</div>
