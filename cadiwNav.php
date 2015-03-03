@@ -2,9 +2,8 @@
 	$udata=$this->session->all_userdata();
 	
 ?>	
-	<div id="nav">
-		
-			<table id="mypage">
+		<div id="mypage">
+			<table>
 				<tr>
 					<td colspan="2"><?=$udata['uname']?> 님 환영합니다!</td>
 				</tr>
@@ -17,10 +16,13 @@
 					<?}?>
 				</tr>
 				<tr>
-					<td><div class="btn btn-default btn-sm">마이페이지</div></td>
-					<td><a href="/index.php/cpms/code/logout"><div class="btn btn-default btn-sm">로그아웃</div></a></td>
+					<td><input type='button' class="btn btn-default btn-sm" value='마이페이지'></td>
+					<td><a href="/index.php/cpms/code/logout">&nbsp;&nbsp;<input type='button' class="btn btn-default btn-sm" value='로그아웃'></a></td>
 				</tr>
 			</table>
+		</div>
+	
+			
 
 		
 		<div id="menu">
@@ -30,11 +32,11 @@
 					
 				<li><a href="/index.php/cpms/code/group?group=<?=$udata['ugroup']?>">웹 프로젝트</a></li>
 				<li>Q & A</li>
-			
-		</div>
-		<div id="menu_board_sub">
+			<div id="menu_board_sub">
 						<li>강의자료</li>
 						<li><a href="/index.php/cpms/code/board">자유게시판<a></li>
 			</div>
+		</div>
+		
+			
 
-	</div>

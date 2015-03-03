@@ -25,10 +25,12 @@
 	<script src="/assets/js/cadiw.js"></script>
 </head>
 <body>
-
+	<div id="wrap">
 	<a href="/index.php/cpms/code/cadiw">
 		<div id="header">
 			<img src="/assets/image/cadi-w.jpg" height="100px">웹 개발 단기 프로젝트 동아리<br>
 
 		</div>
 	</a> 
+	
+
