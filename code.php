@@ -67,13 +67,43 @@ class Code extends CI_Controller{
 	public function board(){
 		$udata=$this->session->all_userdata();
 		if(isset($udata['uid'])){
+			$result['list']=$this->codeModel->boardView();
+
+			
+
 			$this->load->view('cpms/cadiwHeader');
 			$this->load->view('cpms/cadiwNav');
-			$this->load->view('cpms/board');
+			$this->load->view('cpms/board',$result);
 		}
 		else{
 			echo "<script>alert('로그인 해주세요!')</script>";
-			redirect('/cpms/code','refresh');
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function boardWrite(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$this->load->view('cpms/cadiwHeader');
+			$this->load->view('cpms/cadiwNav');
+			$this->load->view('cpms/boardWrite');
+		}
+		else{
+			echo "<script>alert('로그인해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function boardInput(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$btitle=$this->input->post('btitle');
+			$bcontent=$this->input->post('bcontent');
+			$this->codeModel->boardInput($udata['uid'],$btitle,$bcontent);
+			echo "<script>alert('글이 등록되었습니다')</script>";
+			redirect('/cpms/code/board','refresh');
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
 		}
 	}
 	
