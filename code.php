@@ -64,6 +64,18 @@ class Code extends CI_Controller{
 			$this->load->view('cpms/cadiwGroupIndex');
 		}
 	}
+	public function board(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$this->load->view('cpms/cadiwHeader');
+			$this->load->view('cpms/cadiwNav');
+			$this->load->view('cpms/board');
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code','refresh');
+		}
+	}
 	
 }
 
