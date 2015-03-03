@@ -30,11 +30,11 @@
 				<li>공지사항</li>
 				<li id="menu_board">게시판</li>
 					
-				<li><a href="/index.php/cpms/code/group?group=<?=$udata['ugroup']?>">웹 프로젝트</a></li>
+				<a href="/index.php/cpms/code/group?group=<?=$udata['ugroup']?>"><li>웹 프로젝트</li></a>
 				<li>Q & A</li>
 			<div id="menu_board_sub">
 						<li>강의자료</li>
-						<li><a href="/index.php/cpms/code/board">자유게시판<a></li>
+						<a href="/index.php/cpms/code/board"><li>자유게시판</li><a>
 			</div>
 		</div>
 		
