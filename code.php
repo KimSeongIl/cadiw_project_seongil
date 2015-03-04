@@ -67,13 +67,36 @@ class Code extends CI_Controller{
 	public function board(){
 		$udata=$this->session->all_userdata();
 		if(isset($udata['uid'])){
-			$result['list']=$this->codeModel->boardView();
-
 			
-
+			$data['page_num'] = $this->uri->segment(4,0);
+			$data['per_page']=10;
+			$data['list']=$this->codeModel->boardView($data['per_page'],$data['page_num']);
+			$data['total_rows']=$this->codeModel->boardCount();
+			$this->load->library('pagination');
+			$config['full_tag_open'] = '<div id="page">';
+			$config['base_url']='/index.php/cpms/code/board';
+			$config['total_rows']=$data['total_rows'];
+			$config['per_page'] = $data['per_page'];
+			$config['uri_segment'] = 4;
+			$config['next_link']  = '다음';
+			$config['next_tag_open'] = '<div class="page_num">';
+         	$config['next_tag_close'] = '</div>';
+         	$config['prev_link']  = '이전';
+         	$config['prev_tag_open'] = '<div class="page_num">';
+         	$config['prev_tag_close'] = '</div>';
+         	$config['num_tag_open'] = '<div class="page_num">';
+         	$config['num_tag_close'] = '</div>';
+         	$config['cur_tag_open'] = '<div class="page_num">';
+         	$config['cur_tag_close'] = '</div>';
+         	$config['full_tag_close'] = '</div>';
+			$this->pagination->initialize($config);
+			$data['page_links'] = $this->pagination->create_links();
+			if($data['page_links']==null){
+				$data['page_links']='1';
+			}
 			$this->load->view('cpms/cadiwHeader');
 			$this->load->view('cpms/cadiwNav');
-			$this->load->view('cpms/board',$result);
+			$this->load->view('cpms/board',$data);
 		}
 		else{
 			echo "<script>alert('로그인 해주세요!')</script>";
