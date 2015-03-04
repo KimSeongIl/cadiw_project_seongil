@@ -17,11 +17,19 @@ class CodeModel extends CI_Model{
 			);
 		$this->db->insert('board',$insertdb);
 	}
-	function boardView(){
+	function boardView($num,$local){
+		$this->db->limit($num,$local);
 		$this->db->select('bid,btitle,name,bdate');
 		$this->db->from('board');
 		$this->db->join('member','member.id=board.uid');
+		$this->db->order_by("bid", "desc"); 
 		return $this->db->get()->result();
+	}
+	function boardCount(){
+		$this->db->select('bid,btitle,name,bdate');
+		$this->db->from('board');
+		$this->db->join('member','member.id=board.uid');
+		return $this->db->count_all_results();
 	}
 	
 	
