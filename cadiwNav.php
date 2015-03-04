@@ -34,9 +34,10 @@
 				<li>Q & A</li>
 			<div id="menu_board_sub">
 						<li>강의자료</li>
-						<a href="/index.php/cpms/code/board"><li>자유게시판</li><a>
+						<a href="/index.php/cpms/code/board"><li>자유게시판</li></a>
 			</div>
 		</div>
+
 		
 			
 
