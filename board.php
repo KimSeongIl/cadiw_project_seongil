@@ -34,8 +34,12 @@
 		<?=$page_links?>
 		<br>
 		<br>
-		<input type="search"> <input type="button" class="btn-btn default btn-sm" value="검색">
+
+		<input type="search"> &nbsp;<button class="btn-btn default btn-sm"><span class='glyphicon glyphicon-search'></span></button>
 		<input id="board_write_btn" class="btn-btn default btn-sm" type="button" value="글쓰기" onclick="location.href='/index.php/cpms/code/boardWrite'">
 		</center>
 </div><!-- div id='article'-->
 </div> <!--div id='wrap'-->
+
+</body>
+</html>

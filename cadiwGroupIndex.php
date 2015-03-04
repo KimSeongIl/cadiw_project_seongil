@@ -3,3 +3,6 @@
 	</div>
 	</div> <!--div id='article'-->
 </div> <!--div id='wrap'-->
+
+</body>
+</html>
