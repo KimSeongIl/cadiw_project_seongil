@@ -182,6 +182,58 @@ class Code extends CI_Controller{
 			redirect('/cpms/code/cadiw','refresh');
 		}
 	}
+	public function boardSearch($option,$search){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$o=$option;
+			$s=$search;
+			$option=urldecode($option);
+			$search=urldecode($search);
+
+			$data['page_num'] = $this->uri->segment(6,0);
+			$data['per_page']=10;
+			if($option=='제목+내용'){
+				$data['list']=$this->codeModel->boardSearchAll($data['per_page'],$data['page_num'],$search);
+				$data['total_rows']=$this->codeModel->boardSearchAllCount($search);
+			}
+			else{
+				$data['list']=$this->codeModel->boardSearchTitle($data['per_page'],$data['page_num'],$search);
+				$data['total_rows']=$this->codeModel->boardSearchTitleCount($search);
+			}
+
+		
+			
+			$this->load->library('pagination');
+			$config['full_tag_open'] = '<div id="page">';
+			$config['base_url']='/index.php/cpms/code/boardSearch/'.$o.'/'.$s.'';
+			$config['total_rows']=$data['total_rows'];
+			$config['per_page'] = $data['per_page'];
+			$config['uri_segment'] = 6;
+			$config['next_link']  = '다음';
+			$config['next_tag_open'] = '<div class="page_num">';
+         	$config['next_tag_close'] = '</div>';
+         	$config['prev_link']  = '이전';
+         	$config['prev_tag_open'] = '<div class="page_num">';
+         	$config['prev_tag_close'] = '</div>';
+         	$config['num_tag_open'] = '<div class="page_num">';
+         	$config['num_tag_close'] = '</div>';
+         	$config['cur_tag_open'] = '<div class="page_num">';
+         	$config['cur_tag_close'] = '</div>';
+         	$config['full_tag_close'] = '</div>';
+			$this->pagination->initialize($config);
+			$data['page_links'] = $this->pagination->create_links();
+			if($data['page_links']==null){
+				$data['page_links']='1';
+			}
+			$this->load->view('cpms/cadiwHeader');
+			$this->load->view('cpms/cadiwNav');
+			$this->load->view('cpms/board',$data);
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
 	
 }
 
