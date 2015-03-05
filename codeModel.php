@@ -17,7 +17,7 @@ class CodeModel extends CI_Model{
 			);
 		$this->db->insert('board',$insertdb);
 	}
-	function boardView($num,$local){
+	function board($num,$local){
 		$this->db->limit($num,$local);
 		$this->db->select('bid,btitle,name,bdate');
 		$this->db->from('board');
@@ -30,6 +30,13 @@ class CodeModel extends CI_Model{
 		$this->db->from('board');
 		$this->db->join('member','member.id=board.uid');
 		return $this->db->count_all_results();
+	}
+	function boardView($no){
+		$this->db->where('bid',$no);
+		$this->db->select('btitle,name,bcontent,bdate');
+		$this->db->from('board');
+		$this->db->join('member','member.id=board.uid');
+		return $this->db->get()->result();
 	}
 	
 	
