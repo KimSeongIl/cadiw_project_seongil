@@ -33,10 +33,19 @@ class CodeModel extends CI_Model{
 	}
 	function boardView($no){
 		$this->db->where('bid',$no);
-		$this->db->select('btitle,name,bcontent,bdate');
+		$this->db->select('uid,bid,btitle,name,bcontent,bdate');
 		$this->db->from('board');
 		$this->db->join('member','member.id=board.uid');
 		return $this->db->get()->result();
+	}
+	function boardUpdate($bid,$bcontent){
+		$data=array('bcontent'=>$bcontent);
+		$this->db->where('bid',$bid);
+		$this->db->update('board',$data);
+	}
+	function boardDelete($no){
+		$this->db->where('bid',$no);
+		$this->db->delete('board');
 	}
 	
 	
