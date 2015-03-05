@@ -12,11 +12,13 @@
 			<th>내용</th>
 			<td><textarea name="bcontent"  style="width:100%;height:100%;border:0px;"  class="jqte-test"></textarea></td>
 		</tr>
-		<tr>
-			<td colspan="2"><input class="btn-btn default btn-sm" type="submit" value="등록"> <input class="btn-btn default btn-sm" type="button" value="돌아가기" onclick="history.back()"></td>
-		</tr>
+		
 
 	</table>
+	<br>
+	<br>
+	<br>
+	<input class="btn-btn default btn-sm" type="submit" value="등록"> &nbsp;&nbsp;<input class="btn-btn default btn-sm" type="button" value="돌아가기" onclick="history.back()">
 	</form>
 
 
