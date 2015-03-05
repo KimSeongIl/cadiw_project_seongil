@@ -142,6 +142,46 @@ class Code extends CI_Controller{
 			redirect('/cpms/code/cadiw','refresh');
 		}
 	}
+	public function boardUpdate($no){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$result['list']=$this->codeModel->boardView($no);
+			$this->load->view('cpms/cadiwHeader');
+			$this->load->view('cpms/cadiwNav');
+			$this->load->view('cpms/boardUpdate',$result);
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function boardUpdateSuccess(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$bid=$this->input->post('bid');
+			$bcontent=$this->input->post('bcontent');
+			$this->codeModel->boardUpdate($bid,$bcontent);
+			echo "<script>alert('글이 수정되었습니다')</script>";
+			redirect('/cpms/code/board','refresh');
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function boardDelete(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$bid=$this->input->post('bid');
+			$this->codeModel->boardDelete($bid);
+			echo "<script>alert('글이 삭제되었습니다')</script>";
+			redirect('/cpms/code/board','refresh');
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
 	
 }
 
