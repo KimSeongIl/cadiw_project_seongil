@@ -70,7 +70,7 @@ class Code extends CI_Controller{
 			
 			$data['page_num'] = $this->uri->segment(4,0);
 			$data['per_page']=10;
-			$data['list']=$this->codeModel->boardView($data['per_page'],$data['page_num']);
+			$data['list']=$this->codeModel->board($data['per_page'],$data['page_num']);
 			$data['total_rows']=$this->codeModel->boardCount();
 			$this->load->library('pagination');
 			$config['full_tag_open'] = '<div id="page">';
@@ -123,6 +123,19 @@ class Code extends CI_Controller{
 			$this->codeModel->boardInput($udata['uid'],$btitle,$bcontent);
 			echo "<script>alert('글이 등록되었습니다')</script>";
 			redirect('/cpms/code/board','refresh');
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function boardView($no){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$result['list']=$this->codeModel->boardView($no);
+			$this->load->view('cpms/cadiwHeader');
+			$this->load->view('cpms/cadiwNav');
+			$this->load->view('cpms/boardView',$result);
 		}
 		else{
 			echo "<script>alert('로그인 해주세요!')</script>";
