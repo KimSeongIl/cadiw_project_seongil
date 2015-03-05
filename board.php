@@ -13,7 +13,7 @@
 			</tr>
 			<?
 			if(count($list)==0){
-
+			
 			}
 			else{
 			for($i=0;$i<count($list);$i++){
@@ -40,7 +40,11 @@
 		<br>
 		<br>
 		<br>
-		<input type="search"> &nbsp;<button class="btn-btn default btn-sm"><span class='glyphicon glyphicon-search'></span></button>
+		<select id="board_search_option">
+			<option>제목+내용</option>
+			<option>작성자</option>
+		</select>
+		<input type="search" id="board_search"> &nbsp;<button class="btn-btn default btn-sm" onclick="board_search()"><span class='glyphicon glyphicon-search'></span></button>
 		<button id="board_write_btn" class="btn-btn default btn-sm" onclick="location.href='/index.php/cpms/code/boardWrite'"><span class='glyphicon glyphicon-edit'></span></button>
 		</center>
 </div><!-- div id='article'-->
