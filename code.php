@@ -133,6 +133,7 @@ class Code extends CI_Controller{
 		$udata=$this->session->all_userdata();
 		if(isset($udata['uid'])){
 			$result['list']=$this->codeModel->boardView($no);
+			$result['comment']=$this->codeModel->commentView($no);
 			$this->load->view('cpms/cadiwHeader');
 			$this->load->view('cpms/cadiwNav');
 			$this->load->view('cpms/boardView',$result);
@@ -228,6 +229,47 @@ class Code extends CI_Controller{
 			$this->load->view('cpms/cadiwHeader');
 			$this->load->view('cpms/cadiwNav');
 			$this->load->view('cpms/board',$data);
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function commentWrite(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+
+			$content=$this->input->post('content');
+			$board_id=$this->input->post('board_id');
+			echo $board_id;
+			$this->codeModel->commentWrite($board_id,$udata['uid'],$content);
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	}
+	public function commentView(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$bno=$this->input->post('bid');
+			$result['list']=$this->codeModel->commentView($bno);
+			
+			$this->load->view('cpms/commentView',$result);
+		}
+		else{
+			echo "<script>alert('로그인 해주세요!')</script>";
+			redirect('/cpms/code/cadiw','refresh');
+		}
+	
+	}
+	public function commentRemove(){
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			$cid=$this->input->post('cid');
+			$this->codeModel->commentRemove($cid);
+			
+			
 		}
 		else{
 			echo "<script>alert('로그인 해주세요!')</script>";
