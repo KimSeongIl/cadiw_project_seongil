@@ -32,8 +32,32 @@
 	<input type="button" value="수정" class="btn btn-default btn-sm" onclick="location.href='/index.php/cpms/code/boardUpdate/<?=$list[0]->bid?>'"></a>
 	&nbsp;&nbsp;
 	<input type="submit" value="삭제" class="btn btn-default btn-sm" onclick="if(!confirm('정말 삭제하시겠습니까?')){return false;}"><br>
-	<input type="hidden" value="<?=$list[0]->bid?>" name="bid">
+	<input type="hidden" value="<?=$list[0]->bid?>" id="board_id" name="bid">
 	</form>
+	<br>
+	<div id="comment">
+		<div id="commentWrite">
+			<textarea style="width:90%;" id="commentWrite_content"></textarea> &nbsp;<input type="button" id="comment_submit" class="btn btn-defalt btn-sm" value="쓰기">
+		</div>
+		<div id="commentView">
+		<br>
+			<table border style="width:100%;">
+				<?
+
+					for($i=0;$i<count($comment);$i++){
+						echo "<tr>";
+						echo "<td style='text-align:left;border-right:0px;'>".$comment[$i]->name."&nbsp;&nbsp;";
+						echo $comment[$i]->cdate."<br>";
+						echo nl2br($comment[$i]->ccontent)."</td>";
+						if($comment[$i]->uid==$udata['uid']){
+						echo "<td style='border-left:0px;'><span style='cursor:pointer;cursor:hand;'class='glyphicon glyphicon-remove' onclick='commentRemove({$list[0]->bid},{$comment[$i]->cid})'></span></td>";
+						}
+						echo "</tr>";
+					}
+				?>
+			</table>
+		</div>
+	</div>
 </div>
 <?}?>
 </div><!-- div id='article'-->
