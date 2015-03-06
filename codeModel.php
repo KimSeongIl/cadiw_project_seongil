@@ -99,6 +99,13 @@ class CodeModel extends CI_Model{
 		$this->db->where('cid',$cid);
 		$this->db->delete('board_comment');
 	}
+	function commentCount(){
+		$this->db->select ('bid,count(bid) as bcount');
+		$this->db->from('board_comment');
+		$this->db->group_by('bid');
+		$this->db->order_by('bid','desc');
+		return $this->db->get()->result();
+	}
 	
 }
 ?>
