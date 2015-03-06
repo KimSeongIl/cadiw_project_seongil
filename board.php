@@ -19,7 +19,12 @@
 			for($i=0;$i<count($list);$i++){
 				echo "<tr>";
 				echo "	<td>".$list[$i]->bid."</td>";
-				echo "	<td><a href='/index.php/cpms/code/boardView/".$list[$i]->bid."'>".$list[$i]->btitle."</a></td>";
+				if($comment[$i]==0){
+					echo "	<td><a href='/index.php/cpms/code/boardView/".$list[$i]->bid."'>".$list[$i]->btitle."</a></td>";
+				}
+				else{
+					echo "	<td><a href='/index.php/cpms/code/boardView/".$list[$i]->bid."'>".$list[$i]->btitle." [".$comment[$i]."]</a></td>";
+				}
 				echo "	<td>".$list[$i]->name."</td>";
 				echo "	<td>".$list[$i]->bdate."</td>";
 				echo "</tr>";
