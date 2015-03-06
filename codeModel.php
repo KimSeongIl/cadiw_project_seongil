@@ -79,6 +79,26 @@ class CodeModel extends CI_Model{
 		$this->db->like('name',$search);
 		return $this->db->count_all_results();
 	}
+	function commentWrite($bid,$uid,$ccontent){
+		$insertdb=array(
+			'bid'=>$bid,
+			'uid'=>$uid,
+			'ccontent'=>$ccontent
+			);
+		$this->db->insert('board_comment',$insertdb);
+	}
+	function commentView($bid){
+		$this->db->where('bid',$bid);
+		$this->db->select('bid,cid,uid,name,ccontent,cdate');
+		$this->db->from('board_comment');
+		$this->db->join('member','member.id=board_comment.uid');
+		$this->db->order_by('cid','desc');
+		return $this->db->get()->result();
+	}
+	function commentRemove($cid){
+		$this->db->where('cid',$cid);
+		$this->db->delete('board_comment');
+	}
 	
 }
 ?>
