@@ -68,10 +68,24 @@ class Code extends CI_Controller{
 		$udata=$this->session->all_userdata();
 		if(isset($udata['uid'])){
 			
+
 			$data['page_num'] = $this->uri->segment(4,0);
 			$data['per_page']=10;
 			$data['list']=$this->codeModel->board($data['per_page'],$data['page_num']);
 			$data['total_rows']=$this->codeModel->boardCount();
+
+			$comment=$this->codeModel->commentCount();
+			
+			for($i=0;$i<count($data['list']);$i++){
+				$comment1[$i]=0;
+				for($j=0;$j<count($comment);$j++){
+					if($data['list'][$i]->bid==$comment[$j]->bid)
+						$comment1[$i]=$comment[$j]->bcount;
+				}
+				
+			}
+			$data['comment']=$comment1;
+			
 			$this->load->library('pagination');
 			$config['full_tag_open'] = '<div id="page">';
 			$config['base_url']='/index.php/cpms/code/board';
@@ -202,7 +216,17 @@ class Code extends CI_Controller{
 				$data['total_rows']=$this->codeModel->boardSearchTitleCount($search);
 			}
 
-		
+			$comment=$this->codeModel->commentCount();
+			
+			for($i=0;$i<count($data['list']);$i++){
+				$comment1[$i]=0;
+				for($j=0;$j<count($comment);$j++){
+					if($data['list'][$i]->bid==$comment[$j]->bid)
+						$comment1[$i]=$comment[$j]->bcount;
+				}
+				
+			}
+			$data['comment']=$comment1;
 			
 			$this->load->library('pagination');
 			$config['full_tag_open'] = '<div id="page">';
