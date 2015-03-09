@@ -9,8 +9,12 @@ class Code extends CI_Controller{
 		$this->load->library('session');
 	}
 	public function index(){
-
+		$udata=$this->session->all_userdata();
+		if(isset($udata['uid'])){
+			redirect('/code/cadiw','refresh');
+		}
 		$this->load->view('codeIndex');
+
 	}
 	public function login(){
 		$id=$this->input->post('id');
@@ -122,7 +126,7 @@ class Code extends CI_Controller{
 		if(isset($udata['uid'])){
 			$this->load->view('cadiwHeader');
 			$this->load->view('cadiwNav');
-			$this->load->view('boardWrite');
+			$this->load->view('boardWrite',array('error' => ' ' ));
 		}
 		else{
 			echo "<script>alert('로그인해주세요!')</script>";
@@ -132,11 +136,34 @@ class Code extends CI_Controller{
 	public function boardInput(){
 		$udata=$this->session->all_userdata();
 		if(isset($udata['uid'])){
-			$btitle=$this->input->post('btitle');
-			$bcontent=$this->input->post('bcontent');
-			$this->codeModel->boardInput($udata['uid'],$btitle,$bcontent);
-			echo "<script>alert('글이 등록되었습니다')</script>";
-			redirect('/code/board','refresh');
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = '*';
+			$config['max_size']	= '100';
+			$config['max_width']  = '1024';
+			$config['max_height']  = '768';
+			$this->load->library('upload', $config);
+			
+			if ( ! $this->upload->do_upload() && !strstr($this->upload->display_errors(),"You did not select a file to upload."))
+			{
+				$error = array('error' => $this->upload->display_errors());
+				echo "<script>alert({$error})</script>";
+				redirect('/code/boardWrite','refresh');
+			}	
+			else
+			{
+				
+				$data = array('upload_data' => $this->upload->data());
+				$btitle=$this->input->post('btitle');
+				$bcontent=$this->input->post('bcontent');
+				$file_name=$data['upload_data']['file_name'];
+				$this->codeModel->boardInput($udata['uid'],$btitle,$file_name,$bcontent);
+				
+
+				echo "<script>alert('글이 등록되었습니다')</script>";
+				redirect('/code/board','refresh');
+			}
+		
+			
 		}
 		else{
 			echo "<script>alert('로그인 해주세요!')</script>";
@@ -217,7 +244,7 @@ class Code extends CI_Controller{
 			}
 
 			$comment=$this->codeModel->commentCount();
-			
+			$comment1='';
 			for($i=0;$i<count($data['list']);$i++){
 				$comment1[$i]=0;
 				for($j=0;$j<count($comment);$j++){

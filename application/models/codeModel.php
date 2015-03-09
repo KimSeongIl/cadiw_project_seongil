@@ -9,10 +9,11 @@ class CodeModel extends CI_Model{
 
 		return $this->db->query($strQuery)->result();
 	}
-	function boardInput($uid,$btitle,$bcontent){
+	function boardInput($uid,$btitle,$file_name,$bcontent){
 		$insertdb=array(
 			'uid'=>$uid,
 			'btitle'=>$btitle,
+			'files'=>$file_name,
 			'bcontent'=>$bcontent
 			);
 		$this->db->insert('board',$insertdb);

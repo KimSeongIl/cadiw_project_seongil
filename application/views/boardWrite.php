@@ -1,7 +1,8 @@
 
 <div id='article'>
 <center>
-	<form id='boardWriteForm' action='/index.php/code/boardInput' method='post'>
+	<?php echo $error;?>
+	<form id='boardWriteForm' action='/index.php/code/boardInput' method='post' enctype="multipart/form-data" >
 	<table border id='boardWrite'>
 		<tr>
 			<th>제목</th>
@@ -9,6 +10,10 @@
 		</tr>
 		
 		<tr>
+		<tr>
+			<th>파일</th>
+			<td><input type="file" name="userfile" size="20" /></td>
+		</tr>
 			<th>내용</th>
 			<td><textarea name="bcontent"  style="width:100%;height:100%;border:0px;"  class="jqte-test"></textarea></td>
 		</tr>
